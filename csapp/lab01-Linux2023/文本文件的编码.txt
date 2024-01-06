@@ -1,0 +1,52 @@
+123abc:
+判断一个文本文件的编码格式
+文件的字符集有两大类：ANSI、Unicode。
+
+对于Unicode的多字节机内编码，则有小尾编码（Unicode)、大尾编码(BigEndianUnicode)之分。
+而UTF-8属于单字节编码，不涉及字节序的问题。
+如何区分？
+当文本文件头部开始的两个字节为：
+0xFF 0xFE：Unicode的小尾编码；
+0xFE 0xFF：Unicode的大尾编码；
+0xEF 0xBB：第3个字节是0xBF：Unicode的UTF-8编码
+其   他：  ANSI编码。
+
+windows下用notepad++，linux下用notepadqq（一样的软件，不同OS下的版本）
+其菜单：“编码”，可以将文本文件转换为不同的编码格式,然后用工具查看：
+（1）Windows下用工具winhex查看hello.c。(看汉字编码)
+（2）Linux下运行 od -Ax -tcx1 hello.c 看hello.c。
+
+
+按照如上所说，我们可以通过读取文件头的两个字节来判断文件的编码格式，代码如下(C#代码）：
+
+程序中System.Text.Encoding.Default是指操作系统的当前 ANSI 代码页的编码。
+
+public System.Text.Encoding GetFileEncodeType(string filename)
+{
+  System.IO.FileStream fs = new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+  System.IO.BinaryReader br = new System.IO.BinaryReader(fs);
+  Byte[] buffer = br.ReadBytes(2);
+  if(buffer[0]>=0xEF)
+  {
+    if(buffer[0]==0xEF && buffer[1]==0xBB)
+    {
+       return System.Text.Encoding.UTF8;
+    }
+    else if(buffer[0]==0xFE && buffer[1]==0xFF)
+    {
+       return System.Text.Encoding.BigEndianUnicode;
+    }
+    else if(buffer[0]==0xFF && buffer[1]==0xFE)
+    {
+       return System.Text.Encoding.Unicode;
+    }
+    else
+    {
+       return System.Text.Encoding.Default;
+    }
+  }
+  else
+  {
+       return System.Text.Encoding.Default;
+  }
+}

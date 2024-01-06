@@ -1,0 +1,14 @@
+<div class="container">
+    <text class="title">
+        {{ title }}
+    </text>
+    <list class="list">
+        <list-item for="{{cityList}}" class="list-item" onclick="itemClick({{$item}})">
+            <text class="text">{{$item}}</text>
+        </list-item>33
+    </list>
+    <div class="addcity">
+        <input class="input" type="text" placeholder="请输入城市名" onchange="getCity"></input>
+        <button class="btn" onclick="buttonClick">添加</button>
+    </div>
+</div>

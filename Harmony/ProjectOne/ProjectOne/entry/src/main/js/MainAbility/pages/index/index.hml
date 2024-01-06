@@ -1,0 +1,28 @@
+<div class="container">
+    <button class="btn" type="circle" onclick="buttonClick">➕</button>
+    <text class="title">{{city}}</text>
+    <div class="row">
+        <text>天气</text>
+        <text>{{weather}}</text>
+    </div>
+    <div class="row">
+        <text>日期</text>
+        <text>{{date}}</text>
+    </div>
+    <div class="row">
+        <text>最高温</text>
+        <text>{{high_temperature}}</text>
+    </div>
+    <div class="row">
+        <text>最低温</text>
+        <text>{{low_temperature}}</text>
+    </div>
+    <div class="row">
+        <text>风向</text>
+        <text>{{wind_direction}}</text>
+    </div>
+    <div class="row">
+        <text>风力等级</text>
+        <text>{{wind_level}}</text>
+    </div>
+</div>

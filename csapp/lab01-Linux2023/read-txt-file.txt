@@ -1,0 +1,85 @@
+打开文件的函数原型
+
+FILE *fopen( const char * filename, const char * mode );
+ 读、写文件的几种模式
+
+模式	描述
+r(read)	具有文件的读权限。
+w(write)	具有文件的写权限。
+a(append)	在文件的末端添加数据。
+b(binary)	文件的类型为二进制文件。
+t(text)
+
+文件的类型为文本文件。
++	具有文件的读写权限。
+r:以只读的方式打开文件，如果文件不存在，则返回NULL。
+r+:以读写的方式打开文件，如果文件不存在，则返回NULL。
+a:追加文件并进行写操作，如果文件不存在，就创建文件，否则新增的内容被添加到文件的末端。
+rt:以读方式打开一个文本文件。
+wt:以写方式打开打开一个文本文件，如果文件不存在，则新建该文件。
+rt+:以读写方式打开一个文本文件
+wt+:以读写方式打开一个文本文件，如果文件不存在，则新建该文件。
+
+如果处理的是二进制文件，则需使用下面的访问模式来取代上面的访问模式：
+"rb", "wb", "ab", "rb+", "r+b", "wb+", "w+b", "ab+", "a+b"
+————————————————
+版权声明：本文为CSDN博主「奕星星奕」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_32285693/article/details/106710116
+
+
+
+#include <stdio.h>
+#include <string.h>
+ 
+#define BufferLen 256
+ 
+// 读写文件
+int main()
+{
+	FILE* fp = NULL;
+ 
+	// 只允许读文件// 打开文件
+	fopen_s(&fp,"work.txt", "r");
+ 
+	char buffer[BufferLen];
+ 
+	// 判断文件是否结束
+	while (!feof(fp))
+	{
+		// 每次读取之前将buffer置为空
+		memset(buffer,'\0', BufferLen * sizeof(char));
+ 
+		// 读取出来的buffer会默认在最后一位加'\0'
+		fgets(buffer, BufferLen, fp);
+ 
+		// 所以读取的文件如果其中一行为空，则默认其长度为1
+		// 过滤其中没有内容的行
+		size_t len = strlen(buffer);
+		if (len == 1)continue;
+ 
+		printf("work contexts: %s", buffer);
+	}
+ 
+	// 关闭文件
+	fclose(fp);
+	
+	return 0;
+
+————————————————
+版权声明：本文为CSDN博主「奕星星奕」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_32285693/article/details/106710116
+
+
+一. EOF
+　　EOF是一个整数类型的宏定义，扩展为负数常量表达式（通常为-1）。它被头文件中的好几个函数作为返回值使用，来表明已经到达文件尾或者示意一些其他的错误条件。它也被作为一个值来表示无效的字符。
+
+二. feof
+　　feof用于判断文件结尾，存在于头文件。使用方法是feof(fp)，fp为指向需要判断的文件的指针。如果不到文件结尾，返回0值；如果是文件结尾，返回非0.
+
+注意：
+　　调用feof函数时，指针只有超过文件尾读取数据，才会发生异常。使用feof函数的逻辑是先读再判断。
+
+三. EOF 和 feof的区别：
+　　１．EOF（-1）通常用来判断文本文件的结尾，因为ASCII码值没有-1 的情况。
+
+　　２．二进制文件中，存放的是数值，可能有-1，因此不能用EOF来判断，要用feof函数。

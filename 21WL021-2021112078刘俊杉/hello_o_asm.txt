@@ -1,0 +1,55 @@
+
+hello.o：   文件格式 elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <main>:
+  0:	f3 0f 1e fa     	endbr64 
+  4:	55          	push  %rbp
+  5:	48 89 e5       	mov  %rsp,%rbp
+  8:	48 83 ec 20     	sub  $0x20,%rsp
+  c:	89 7d ec       	mov  %edi,-0x14(%rbp)
+  f:	48 89 75 e0     	mov  %rsi,-0x20(%rbp)
+ 13:	83 7d ec 04     	cmpl  $0x4,-0x14(%rbp)
+ 17:	74 19        	je   32 <main+0x32>
+ 19:	48 8d 05 00 00 00 00 	lea  0x0(%rip),%rax    # 20 <main+0x20>
+			1c: R_X86_64_PC32	.rodata-0x4
+ 20:	48 89 c7       	mov  %rax,%rdi
+ 23:	e8 00 00 00 00    	call  28 <main+0x28>
+			24: R_X86_64_PLT32	puts-0x4
+ 28:	bf 01 00 00 00    	mov  $0x1,%edi
+ 2d:	e8 00 00 00 00    	call  32 <main+0x32>
+			2e: R_X86_64_PLT32	exit-0x4
+ 32:	c7 45 fc 00 00 00 00 	movl  $0x0,-0x4(%rbp)
+ 39:	eb 4b        	jmp  86 <main+0x86>
+ 3b:	48 8b 45 e0     	mov  -0x20(%rbp),%rax
+ 3f:	48 83 c0 10     	add  $0x10,%rax
+ 43:	48 8b 10       	mov  (%rax),%rdx
+ 46:	48 8b 45 e0     	mov  -0x20(%rbp),%rax
+ 4a:	48 83 c0 08     	add  $0x8,%rax
+ 4e:	48 8b 00       	mov  (%rax),%rax
+ 51:	48 89 c6       	mov  %rax,%rsi
+ 54:	48 8d 05 00 00 00 00 	lea  0x0(%rip),%rax    # 5b <main+0x5b>
+			57: R_X86_64_PC32	.rodata+0x22
+ 5b:	48 89 c7       	mov  %rax,%rdi
+ 5e:	b8 00 00 00 00    	mov  $0x0,%eax
+ 63:	e8 00 00 00 00    	call  68 <main+0x68>
+			64: R_X86_64_PLT32	printf-0x4
+ 68:	48 8b 45 e0     	mov  -0x20(%rbp),%rax
+ 6c:	48 83 c0 18     	add  $0x18,%rax
+ 70:	48 8b 00       	mov  (%rax),%rax
+ 73:	48 89 c7       	mov  %rax,%rdi
+ 76:	e8 00 00 00 00    	call  7b <main+0x7b>
+			77: R_X86_64_PLT32	atoi-0x4
+ 7b:	89 c7        	mov  %eax,%edi
+ 7d:	e8 00 00 00 00    	call  82 <main+0x82>
+			7e: R_X86_64_PLT32	sleep-0x4
+ 82:	83 45 fc 01     	addl  $0x1,-0x4(%rbp)
+ 86:	83 7d fc 04     	cmpl  $0x4,-0x4(%rbp)
+ 8a:	7e af        	jle  3b <main+0x3b>
+ 8c:	e8 00 00 00 00    	call  91 <main+0x91>
+			8d: R_X86_64_PLT32	getchar-0x4
+ 91:	b8 00 00 00 00    	mov  $0x0,%eax
+ 96:	c9          	leave 
+ 97:	c3          	ret  

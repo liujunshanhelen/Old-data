@@ -1,0 +1,30 @@
+<div class="container">
+     <button class="button" type="circle" onclick="buttonClick">添加天气 </button>
+    <text class="city">
+        {{city}}
+    </text>
+    <div class="information">
+        <text>天气</text>
+        <text>{{weather}}</text>
+    </div>
+    <div class="information">
+        <text>日期</text>
+        <text>{{date}}</text>
+    </div>
+    <div class="information">
+        <text>最高温</text>
+        <text>{{high_temperature}}</text>
+    </div>
+    <div class="information">
+        <text>最低温</text>
+        <text>{{low_temperature}}</text>
+    </div>
+    <div class="information">
+        <text>风向</text>
+        <text>{{wind_direction}}</text>
+    </div>
+    <div class="information">
+        <text>风力等级</text>
+        <text>{{wind_level}}</text>
+    </div>
+</div>
